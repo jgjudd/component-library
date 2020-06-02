@@ -1,16 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const styles = styled.header`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
+const HeaderWithStyles = styled.header`
+  background-color: ${(props) => (props.red ? 'red' : 'blue')};
+  color: white;
 `
 
-export const Header = () => {
+const Header = () => {
   return (
-    <styles>
-      <header>HEADER</header>
-    </styles>
+    <HeaderWithStyles red>
+      <div>Div1</div>
+      <div>Div2</div>
+    </HeaderWithStyles>
   )
 }
+
+export default Header

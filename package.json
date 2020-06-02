@@ -51,6 +51,9 @@
     "dist"
   ],
   "dependencies": {
+    "bootstrap": "^4.5.0",
+    "node-sass": "^4.14.1",
+    "reactstrap": "^8.4.1",
     "styled-components": "^5.1.0"
   }
 }

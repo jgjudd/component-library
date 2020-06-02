@@ -1,6 +1,8 @@
 import React from 'react'
-import App from './components/App'
+import 'bootstrap/dist/css/bootstrap.css'
 
-export const ExampleComponent = ({ text }) => {
-  return <App />
+import App from './App'
+
+export const ExampleComponent = ({ theme }) => {
+  return <App theme='blue' />
 }
