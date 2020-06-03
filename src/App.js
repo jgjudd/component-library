@@ -11,14 +11,23 @@ import Footer from './components/Footer'
 import { ThemeContext } from './context/ThemeContext'
 import { DataContext, Reducer, ACTIONS } from './context/DataContext'
 
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+
+const validation = Yup.object().shape({
+  firstName: Yup.string().required('First Name is Required'),
+  email: Yup.string().required('Email is Required')
+})
+
 const App = () => {
   const context = useContext(ThemeContext)
   const data = useContext(DataContext)
 
   const [state, dispatch] = useReducer(Reducer, data)
-
-  function updateState() {
+  const handleSubmit = () => {
     dispatch({ type: ACTIONS.firstNameUpdated, payload: 'Johnny' })
+    dispatch({ type: ACTIONS.emailUpdated, payload: 'Jack@gmail.com' })
+    window.alert('Form Submit Success')
   }
   console.log(state)
   return (
@@ -27,11 +36,44 @@ const App = () => {
       <Container>
         <Row>
           <Col>
-            <div>
-              <p>{state.firstName}</p>
-              <p>{state.lastName}</p>
-            </div>
-            <Button text='Change' onClick={updateState} />
+            <Formik
+              initialValues={{
+                firstName: '',
+                email: ''
+              }}
+              validationSchema={validation}
+              onSubmit={handleSubmit}
+            >
+              {(props) => (
+                <Form onSubmit={props.handleSubmit}>
+                  <div>
+                    <Field name='firstName' component='input' />
+                    <ErrorMessage
+                      name='firstName'
+                      component='div'
+                      onBlur={props.handleBlur}
+                      onChange={props.handleChange}
+                    />
+                    <br />
+                    <Field name='email' component='input' />
+                    <ErrorMessage
+                      name='email'
+                      component='div'
+                      onBlur={props.handleBlur}
+                      onChange={props.handleChange}
+                    />
+                  </div>
+                  <br />
+                  <div>
+                    <p>{state.firstName}</p>
+                    <p>{state.email}</p>
+                  </div>
+                  <div>
+                    <Button text='submit' />
+                  </div>
+                </Form>
+              )}
+            </Formik>
           </Col>
         </Row>
       </Container>
