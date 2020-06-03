@@ -24,9 +24,9 @@ const App = () => {
   const data = useContext(DataContext)
 
   const [state, dispatch] = useReducer(Reducer, data)
-  const handleSubmit = () => {
-    dispatch({ type: ACTIONS.firstNameUpdated, payload: 'Johnny' })
-    dispatch({ type: ACTIONS.emailUpdated, payload: 'Jack@gmail.com' })
+  const handleSubmit = (state) => {
+    dispatch({ type: ACTIONS.firstNameUpdated, payload: state.firstName })
+    dispatch({ type: ACTIONS.emailUpdated, payload: state.email })
     window.alert('Form Submit Success')
   }
   console.log(state)
@@ -35,7 +35,7 @@ const App = () => {
       <Header />
       <Container>
         <Row>
-          <Col>
+          <Col xs='6'>
             <Formik
               initialValues={{
                 firstName: '',
@@ -46,18 +46,23 @@ const App = () => {
             >
               {(props) => (
                 <Form onSubmit={props.handleSubmit}>
-                  <div>
+                  <h4>Registration Form</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <lable>First Name</lable>
                     <Field name='firstName' component='input' />
                     <ErrorMessage
                       name='firstName'
+                      style={{ color: 'red' }}
                       component='div'
                       onBlur={props.handleBlur}
                       onChange={props.handleChange}
                     />
                     <br />
+                    <label>Email</label>
                     <Field name='email' component='input' />
                     <ErrorMessage
                       name='email'
+                      style={{ color: 'red' }}
                       component='div'
                       onBlur={props.handleBlur}
                       onChange={props.handleChange}
