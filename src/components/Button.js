@@ -20,10 +20,10 @@ const SubmitButton = styled.button`
   }
 `
 
-const Button = ({ text, action }) => {
+const Button = (props) => {
   return (
-    <SubmitButton onClick={action}>
-      <span> {text} </span>
+    <SubmitButton onClick={props.onClick}>
+      <span> {props.text} </span>
     </SubmitButton>
   )
 }
